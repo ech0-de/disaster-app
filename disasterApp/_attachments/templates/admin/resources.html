@@ -1,0 +1,21 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-ambulance"></i>
+    <span>{{ 'OPERATIONAL_RESOURCES' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a href="#/admin/resource/-1" class="btn">
+	<i class="fa fa-user-plus"></i> {{ 'ADD_OPERATIONAL_RESOURCE' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content">
+        <div class="list-group">
+            <a ng-repeat="resource in resources" ng-href="#/admin/resource/{{ resource._id }}" class="list-group-item">
+                <span class="btn btn-default">{{ resource.resourceType }}</span>
+                {{ resource.callSign }} <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+        </div>
+    </div>
+</div>

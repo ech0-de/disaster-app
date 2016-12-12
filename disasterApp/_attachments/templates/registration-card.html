@@ -1,0 +1,131 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-wrench"></i>
+    <span>{{ 'REGISTRATION_CARD' | translate }}</span>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <div class="alert alert-warning" ng-show="showWarning">
+	    <strong>{{ 'WARNING' | translate }}!</strong><br>
+	    {{ 'NO_REGISTRATION_CARD_FOUND' | translate }}
+        </div>
+
+        <form role="form">
+            <fieldset>
+                <legend>{{ 'REGISTRATION_CARD_FOR_VOLUNTEERS' | translate }}</legend>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'NAME' | translate }}</label>
+			    <p class="form-control-static">{{ card.name }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'FIRST_NAME' | translate }}</label>
+			    <p class="form-control-static">{{ card.firstName }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'DATE_OF_BIRTH' | translate }}</label>
+			    <p class="form-control-static">{{ card.dateOfBirth }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'GENDER' | translate }}</label>
+                            <div>
+				<button class="btn" ng-class="card.gender.male ? 'btn-success' : ''" disabled>
+				    <i class="fa fa-fw fa-mars"></i>
+				</button>
+				<button class="btn" ng-class="card.gender.female ? 'btn-success' : ''" disabled>
+				    <i class="fa fa-fw fa-venus"></i>
+				</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'RESIDENCE' | translate }}</label>
+			    <p class="form-control-static">{{ card.residence }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'NATIONALITY' | translate }}</label>
+			    <p class="form-control-static">{{ card.nationality | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'STREET' | translate }}</label>
+			    <p class="form-control-static">{{ card.street }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'N_OF_IDENTITY_DISK' | translate }}</label>,
+			    <p class="form-control-static">{{ card.numberOfIdentityDisk }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'DISTRICT_BRANCH' | translate }}</label>
+			    <p class="form-control-static">{{ card.districtBranch }}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'RED_CROSS_UNIT' | translate }}</label>
+			    <p class="form-control-static">{{ card.redCrossUnit }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'PLACE_OF_ACTION' | translate }}</label>
+                            <input type="text" value="Wiley Park" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'DISASTER_PREPAREDNESS_UNIT' | translate }}</label>
+                            <input type="text" value="SEG Behandlung" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'START_OF_ACTION' | translate }}</label>
+                            <input type="text" value="{{ card.startOfAction | date:'medium' }}" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'END_OF_ACTION' | translate }}</label>
+                            <input type="text" value="{{ card.endOfAction | date:'medium' }}" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

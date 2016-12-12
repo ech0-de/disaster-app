@@ -1,0 +1,333 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-user"></i>
+    <span>{{ 'PATIENT' | translate }} #{{patient.patientNumber}} ({{patient.firstName}} {{patient.name}})</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a ng-click="save()" class="btn">
+	<i class="fa fa-user-plus"></i> {{ 'SAVE_PATIENT' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <form role="form">
+            <fieldset>
+		<legend>{{ 'REGISTRATION_CARD_FOR_INJURED_SICK_PERSONS' | translate }}</legend>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'PATIENT_NUMBER' | translate }}</label>
+                            <input type="text" ng-model="patient.patientNumber" class="form-control" ng-disabled="isExistingPatient" capitalize>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'SORTING' | translate }}</label>
+                            <button ui-turn-on="sorting" type="button" ng-class="patient.sorting.class" class="btn btn-block">
+                                {{ patient.sorting.text | translate }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'NAME' | translate }}</label>
+                            <input type="text" ng-model="patient.name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'FIRST_NAME' | translate }}</label>
+                            <input type="text" ng-model="patient.firstName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'DATE_OF_BIRTH_AGE' | translate }}</label>
+                            <input type="date" ng-model="patient.dateOfBirth" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'GENDER' | translate }}</label>
+                            <div>
+                                <chkbutton icon="fa fa-fw fa-mars" model="patient.gender.male"></chkbutton>
+                                <chkbutton icon="fa fa-fw fa-venus" model="patient.gender.female"></chkbutton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'RESIDENCE' | translate }}</label>
+                            <input type="text" ng-model="patient.residence" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'NATIONALITY' | translate }}</label>
+			    <select ng-options="value as (value | translate) group by (value | translate).charAt(0).toUpperCase() for value in nationalities" ng-model="patient.nationality" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'STREET' | translate }}</label>
+                            <input type="text" ng-model="patient.street" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'REMARKS' | translate }}</label>
+			    <textarea class="form-control" ng-model="patient.remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'PLACE_OF_FINDING' | translate }}</label>
+                            <input type="text" ng-model="patient.placeOfFinding" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'DATE_TIME' | translate }}</label>
+                            <input type="datetime-local" ng-model="patient.datetime" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'TRANSPORTATION_1' | translate }}</label>
+                            <input type="text" ng-model="patient.transportation" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'DESTINATION' | translate }}</label>
+                            <input type="text" ng-model="patient.destination" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'TRANSPORTATION_2' | translate }}</label>
+                            <button ui-turn-on="transportation" type="button" class="btn btn-block btn-default">
+                                &nbsp;
+                                <i class="fa fa-fw" ng-repeat="t in transportations" ng-class="t.class" ng-show="patient.transportationOptions[t.text]"></i>
+                                &nbsp;
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'WHEREABOUTS' | translate }}</label>
+                            <input type="text" ng-model="patient.whereabouts" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-group">
+		    <label>{{ 'SHORT_DIAGNOSE' | translate }}</label>
+		    <div class="text-center">
+			<div class="panel panel-default" style="position:relative;display:inline-block;">
+			    <div class="panel-body">
+				<button ng-repeat="d in patient.diagnoses" class="btn btn-diagnose" ng-class="d.diagnose.class" ng-style="d.style" ng-click="showDiagnose(d)">
+				    <i class="fa fa-2x" ng-class="d.diagnose.icon"></i>
+				</button>
+				<img class="body-sketch" src="img/body-sketch.png" ng-click="addDiagnose($event)">
+			    </div>
+			</div>
+		    </div>
+                </div>
+                <div class="form-group">
+		    <label>{{ 'CONSCIOUSNESS' | translate }}</label>
+		    <select ng-options="value as (value | translate) for value in consciousness" ng-model="patient.consciousness" class="form-control"></select>
+                </div>
+                <div class="form-group">
+		    <label>{{ 'RESPIRATION' | translate }}</label>
+		    <select ng-options="value as (value | translate) for value in respiration" ng-model="patient.respiration" class="form-control"></select>
+                </div>
+                <div class="form-group">
+		    <label>{{ 'CIRCULATION' | translate }}</label>
+		    <select ng-options="value as (value | translate) for value in circulation" ng-model="patient.circulation" class="form-control"></select>
+                </div>
+                <div class="form-group">
+		    <label>{{ 'PAIN' | translate }}</label>
+		    <select ng-options="value as (value | translate) for value in pain" ng-model="patient.pain" class="form-control"></select>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-group">
+		    <label>{{ 'REGISTRY' | translate }}</label>
+                    <div class="panel panel-default" ng-repeat="reg in registry | orderBy:'timestamp'">
+                        <div class="panel-heading">
+                            {{ locations[reg.location].name }}
+                            <span class="badge pull-right">{{ reg.timestamp | date:'medium' }}</span>
+                            <span class="label label-default pull-right">
+				{{ volunteers[reg.volunteerId].firstName }} 
+				{{ volunteers[reg.volunteerId].name }}
+			    </span>
+                        </div>
+                        <div class="panel-body" ng-show="reg.notes">
+                            {{ reg.notes }}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-group">
+		    <label>{{ 'SORTING_LOG' | translate }}</label>
+                    <div class="panel" ng-repeat="sorting in patient.sortingLog | orderBy:'timestamp'" ng-class="sorting.class.replace('btn-', 'panel-')">
+                        <div class="panel-heading">
+                            {{ sorting.text | translate }}
+                            <span class="badge pull-right">{{ sorting.timestamp | date:'medium' }}</span>
+                            <span class="label label-default pull-right" style="margin-right: 5px;">
+				{{ volunteers[sorting.volunteerId].firstName }} 
+				{{ volunteers[sorting.volunteerId].name }}
+			    </span>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div ui-content-for="modals">
+    <div class="modal modal-overlay" ui-if="sorting" ui-state="sorting">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="sorting">&times;</button>
+		    <h4 class="modal-title">{{ 'SORTING_FOR_PATIENT' | translate }} #{{patient.patientNumber}} ({{patient.firstName}} {{patient.name}})</h4>
+                </div>
+                <div class="modal-body">
+                    <button ng-repeat="s in sortings" ui-turn-off="sorting" ng-click="patient.sorting=s" type="button" ng-class="s.class" class="btn btn-lg btn-block">{{ s.text | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="transportation" ui-state="transportation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="transportation">&times;</button>
+		    <h4 class="modal-title">{{ 'TRANSPORTATION_FOR_PATIENT' | translate }} #{{patient.patientNumber}} ({{patient.firstName}} {{patient.name}})</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-4 text-center" ng-repeat="t in transportations">
+                            <chkbutton icon="fa fa-fw fa-5x {{ t.class }}" model="patient.transportationOptions[t.text]">{{ t.text | translate }}</chkbutton>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+		    <button class="btn btn-info" ui-turn-off="transportation">{{ 'CLOSE' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="diagnoseType" ui-state="diagnoseType">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="diagnoseType" ng-click="cancelDiagnose()">&times;</button>
+		    <h4 class="modal-title">{{ 'SHORT_DIAGNOSE_FOR_PATIENT' | translate }} #{{patient.patientNumber}} ({{patient.firstName}} {{patient.name}})</h4>
+                </div>
+                <div class="modal-body">
+		    <button ng-repeat="d in diagnoses" ui-turn-off="diagnoseType" ng-click="setDiagnoseType(d)" type="button" ng-class="d.class" class="btn btn-lg btn-block {{ cDiagnose.diagnose.diagnose.class == d.class ? 'active' : '' }}">
+			<i class="fa fa-fw" ng-class="d.icon"></i>
+			{{ d.text | translate }}
+		    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="diagnoseText" ui-state="diagnoseText">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="diagnoseText" ng-click="cancelDiagnose()">&times;</button>
+		    <h4 class="modal-title">{{ 'SHORT_DIAGNOSE_FOR_PATIENT' | translate }} #{{patient.patientNumber}} ({{patient.firstName}} {{patient.name}})</h4>
+                </div>
+                <div class="modal-body">
+		    <div class="form-group">
+			<label>{{ 'NOTES' | translate }}</label>
+			<textarea class="form-control" ng-model="cDiagnose.diagnose.text"></textarea>
+		    </div>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="diagnoseText" ng-hide="cDiagnose.index > -1" ng-click="cancelDiagnose()" class="btn btn-default">
+			<i class="fa fa-fw fa-times"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		    <button ui-turn-off="diagnoseText" class="btn btn-primary" ng-click="saveDiagnose()">
+			<i class="fa fa-fw fa-floppy-o"></i>
+			{{ 'SAVE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="diagnoseShow" ui-state="diagnoseShow">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="diagnoseShow" ng-click="cancelDiagnose()">&times;</button>
+		    <h4 class="modal-title">{{ 'SHORT_DIAGNOSE_FOR_PATIENT' | translate }} #{{patient.patientNumber}} ({{patient.firstName}} {{patient.name}})</h4>
+                </div>
+                <div class="modal-body">
+		    <div class="form-group">
+			<a class="btn btn-block disabled" ng-class="cDiagnose.diagnose.diagnose.class">
+			    <i class="fa fa-fw" ng-class="cDiagnose.diagnose.diagnose.icon"></i>
+			    {{ cDiagnose.diagnose.diagnose.text | translate }}
+			</a>
+			<pre>{{ cDiagnose.diagnose.text }}</pre>
+		    </div>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="diagnoseShow" ng-click="deleteDiagnose()" class="btn btn-danger">
+			<i class="fa fa-fw fa-trash"></i>
+			{{ 'DELETE' | translate }}
+		    </button>
+		    <button ui-turn-off="diagnoseShow" ng-click="editDiagnose()"  class="btn btn-primary">
+			<i class="fa fa-fw fa-pencil"></i>
+			{{ 'EDIT' | translate }}
+		    </button>
+		    <button ui-turn-off="diagnoseShow" ng-click="cancelDiagnose()" class="btn btn-default">
+			<i class="fa fa-fw fa-times"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+</div>

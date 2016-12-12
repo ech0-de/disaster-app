@@ -1,0 +1,71 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-check-square-o"></i>
+    <span>{{ 'PATIENT_REGISTRY' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a ng-click="sign()" class="btn">
+	<i class="fa fa-sign-in"></i> {{ 'SIGN_IN' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <form role="form">
+            <fieldset>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'LOCATION' | translate }}</label>
+                            <select ng-options="id as location.name for (id, location) in locations" ng-model="registry.locationId" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'PATIENT' | translate }}</label>
+                            <button ui-turn-on="patient" type="button" class="btn btn-block btn-default" style="text-align: left;">
+				<span class="btn sorting-indicator" ng-class="registry.patient.sorting.class">{{ registry.patient.patientNumber }}</span>
+                                {{ registry.patient.firstName }}
+                                {{ registry.patient.name }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'TIMESTAMP' | translate }}</label>
+                            <pre class="form-control-static">{{ registry.timestamp | date:'mediumDate' }} {{ registry.timestamp | date:'HH:mm:ss' }}</pre>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+			    <label>{{ 'NOTES' | translate }}</label>
+                            <textarea class="form-control" ng-model="registry.notes"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div ui-content-for="modals">
+    <div class="modal modal-overlay" ui-if="patient" ui-state="patient">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="patient">&times;</button>
+		    <h4 class="modal-title">{{ 'CHOOSE_PATIENT' | translate }}</h4>
+                </div>
+                <div class="modal-body">
+                    <button ng-repeat="patient in patients | orderBy:'patientNumber'" ui-turn-off="patient" ng-click="registry.patient=patient" class="btn btn-default btn-block" style="text-align: left;">
+			<span class="btn sorting-indicator" ng-class="patient.sorting.class">{{ patient.patientNumber }}</span>
+			{{ patient.firstName }}
+			{{ patient.name }}
+		    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

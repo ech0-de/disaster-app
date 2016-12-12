@@ -1,0 +1,168 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-wrench"></i>
+    <span>{{ 'REGISTRATION_CARD' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a ng-click="save()" class="btn">
+        <i class="fa fa-floppy-o"></i> {{ 'SAVE' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <form role="form">
+            <fieldset>
+                <legend>{{ 'REGISTRATION_CARD_FOR_VOLUNTEERS' | translate }}</legend>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'NAME' | translate }}</label>
+                            <input type="text" ng-model="volunteer.name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'FIRST_NAME' | translate }}</label>
+                            <input type="text" ng-model="volunteer.firstName" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'DATE_OF_BIRTH' | translate }}</label>
+                            <input type="text" ng-model="volunteer.dateOfBirth" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>{{ 'GENDER' | translate }}</label>
+                            <div>
+                                <chkbutton icon="fa fa-fw fa-mars" model="volunteer.gender.male"></chkbutton>
+                                <chkbutton icon="fa fa-fw fa-venus" model="volunteer.gender.female"></chkbutton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>{{ 'RANK' | translate }}</label>
+			    <select class="form-control" ng-model="volunteer.rank" ng-options="rank.text as rank.text | translate for rank in ranks"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'RESIDENCE' | translate }}</label>
+                            <input type="text" ng-model="volunteer.residence" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'NATIONALITY' | translate }}</label>
+			    <select ng-options="value as (value | translate) group by (value | translate).charAt(0).toUpperCase() for value in nationalities" ng-model="volunteer.nationality" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'STREET' | translate }}</label>
+                            <input type="text" ng-model="volunteer.street" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'N_OF_IDENTITY_DISK' | translate }}</label>,
+                            <input type="text" ng-model="volunteer.numberOfIdentityDisk" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'DISTRICT_BRANCH' | translate }}</label>
+                            <input type="text" ng-model="volunteer.districtBranch" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'RED_CROSS_UNIT' | translate }}</label>
+                            <input type="text" ng-model="volunteer.redCrossUnit" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'PLACE_OF_ACTION' | translate }}</label>
+                            <input type="text" ng-model="volunteer.placeOfAction" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'DISASTER_PREPAREDNESS_UNIT' | translate }}</label>
+                            <input type="text" ng-model="volunteer.disasterPreparednessUnit" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'START_OF_ACTION' | translate }}</label>
+			    <input type="datetime-local" ng-model="volunteer.startOfAction" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'END_OF_ACTION' | translate }}</label>
+			    <input type="datetime-local" ng-model="volunteer.endOfAction" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'LOCATION' | translate }}</label>
+			    <div class="input-group">
+				<span class="input-group-addon">
+				    <i class="fa fa-fw fa-location-arrow"></i>
+				</span>
+				<select class="form-control" ng-model="volunteer.location" ng-options="location._id as location.name for location in locations"></select>
+			    </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>{{ 'OPERATIONAL_RESOURCE' | translate }}</label>
+			    <div class="input-group">
+				<span class="input-group-addon">
+				    <i class="fa fa-fw fa-ambulance"></i>
+				</span>
+				<select class="form-control" ng-model="volunteer.resource" ng-options="resource._id as resource.callSign + ' (' + resource.resourceType + ')' for resource in resources"></select>
+			    </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>{{ 'NOTES' | translate }}</label>
+                            <textarea class="form-control" ng-model="volunteer.notes"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

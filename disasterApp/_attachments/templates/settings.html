@@ -1,0 +1,64 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-wrench"></i>
+    <span>{{ 'SETTINGS' | translate }}</span>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <form role="form">
+            <fieldset>
+                <legend>{{ 'DEVICE_SETTINGS' | translate }}</legend>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group has-success has-feedback">
+                            <label>{{ 'IDENTITY' | translate }}</label>
+
+			    <button class="btn btn-lg btn-block btn-default" ui-turn-on="identity">
+				<div class="pull-left">
+				    <img class="media-object" src="img/user-icon.png" alt="...">
+				</div>
+				<div class="text-left pull-left" style="padding-left: 15px;" volunteer="identity"></div>
+				<div class="clearfix"></div>
+			    </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group has-success has-feedback">
+                            <label>{{ 'LANGUAGE' | translate }}</label>
+			    <select ng-options="id as lang for (id, lang) in languages" ng-model="settings.language" class="form-control"></select>
+                        </div>
+
+                        <div class="form-group has-success has-feedback">
+                            <label>{{ 'ADMINISTRATION' | translate }}</label>
+                            <ui-switch ng-model="settings.admin"></ui-switch>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<div ui-content-for="modals">
+    <div class="modal" ui-if="identity" ui-state="identity">
+        <div class="modal-backdrop in"></div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="identity">&times;</button>
+		    <h4 class="modal-title">{{ 'CHOOSE_IDENTITY' | translate }}</h4>
+                </div>
+                <div class="modal-body">
+		    <div class="list-group">
+			<a ng-repeat="volunteer in volunteers | orderBy:'name'" class="list-group-item"
+			    ui-turn-off="identity" ng-click="changeIdentity(volunteer)"
+			    ng-class="identity._id == volunteer._id ? 'active' : ''">
+			    <span volunteer="volunteer"></span>
+			    <i class="fa fa-chevron-right pull-right"></i>
+			</a>
+		    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

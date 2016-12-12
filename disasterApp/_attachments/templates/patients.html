@@ -1,0 +1,25 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-users"></i>
+    <span>{{ 'PATIENTS' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a href="#/patient/-1" class="btn">
+	<i class="fa fa-user-plus"></i> {{ 'ADD_PATIENT' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+        <div class="list-group">
+            <a ng-repeat="patient in patients | orderBy:'patientNumber'" ng-href="#/patient/{{patient._id}}" class="list-group-item">
+                <span class="btn sorting-indicator" ng-class="patient.sorting.class">{{ patient.patientNumber }}</span>
+		{{ patient.firstName }} {{ patient.name }} <i class="fa fa-chevron-right pull-right"></i>
+		<span class="pull-right label label-default" ng-if="patientRegistry[patient._id].locationId">
+		    <i class="fa fa-location-arrow"></i>
+		    {{ locations[patientRegistry[patient._id].locationId].name }}
+		</span>
+            </a>
+        </div>
+    </div>
+</div>

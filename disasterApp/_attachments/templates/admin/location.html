@@ -1,0 +1,137 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-location-arrow"></i>
+    <span> {{ 'LOCATIONS' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a class="btn" ng-click="addLocation()">
+        <i class="fa fa-plus"></i> {{ 'ADD_LOCATION' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content">
+	<div class="section">
+	    <div class="panel panel-default" ng-repeat="location in locations">
+		<div class="panel-heading">
+		    <a class="pull-right" ng-click="editLocation(location)">
+			<i class="fa fa-pencil"></i>
+			{{ 'EDIT' | translate }}
+		    </a>
+
+		    <h3 class="panel-title">
+			{{ location.name }}
+		    </h3>
+		</div>
+
+		<div class="panel-body">
+		    <pre ng-show="location.notes">{{ location.notes }}</pre>
+
+		    <button class="btn btn-block" type="button" style="text-align: left" ui-turn-on="patient" ng-click="vlocation._id = location._id">
+			<i class="fa fa-fw fa-group"></i>
+			{{ 'PATIENTS' | translate }}
+			<span class="badge pull-right">
+			    <u>{{ patientCounts[location._id].length }}</u>
+			</span>
+			<span ng-repeat="s in sortings | reverse" class="sorting-badge pull-right" ng-class="s.class">
+			    {{ (patientCounts[location._id] | filter:{sorting:s.text}).length }}
+			</span>
+		    </button>
+
+		    <button class="btn btn-block" type="button" style="text-align: left" ui-turn-on="volunteer" ng-click="vlocation._id = location._id">
+			<i class="fa fa-fw fa-user-secret"></i>
+			{{ 'VOLUNTEERS' | translate }}
+
+			<span class="badge pull-right">{{ (volunteers | filter:{location:location._id}).length }}</span>
+		    </button>
+		</div>
+	    </div>
+	</div>
+    </div>
+</div>
+
+<div ui-content-for="modals">
+    <div class="modal" ui-if="modal" ui-state="modal">
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="modal">&times;</button>
+                    <h4 class="modal-title">{{ title | translate }} &laquo;{{ location.name }}&raquo;</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>{{ 'NAME' | translate }}</label>
+                            <input type="text" ng-model="location.name" class="form-control" ng-disabled="location._rev">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'NOTES' | translate }}</label>
+                            <textarea class="form-control" ng-model="location.notes"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'LOCATION' | translate }}</label>
+                            <input type="text" class="form-control" value="{{location.lat}}, {{location.lng}}" readonly>
+			    <leaflet defaults="defaults" maxbounds="maxbounds" leaflet-resize="resizeCallback" markers="markers" event-broadcast="events" width="100%" height="{{ windowHeight }}"></leaflet>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" ui-turn-off="modal">{{ 'CANCEL' | translate }}</button>
+                    <button class="btn btn-primary" ng-click="saveLocation()">{{ 'SAVE' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="patient" ui-state="patient">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="patient">&times;</button>
+		    <h4 class="modal-title">{{ sorting.text | translate }} &raquo; {{ 'PATIENT_STATISTIC' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+		    <a ng-repeat="r in patientCounts[vlocation._id] | orderBy:'patientNumber'" class="btn btn-default btn-block" style="text-align: left;" ng-href="#/patient/{{ r.patientId }}">
+			<span class="btn sorting-indicator" ng-class="patients[r.patientId].sorting.class">{{ patients[r.patientId].patientNumber }}</span>
+			{{ patients[r.patientId].firstName }}
+			{{ patients[r.patientId].name }}
+			<i class="fa fa-chevron-right pull-right"></i>
+		    </a>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="patient" class="btn btn-info">
+			<i class="fa fa-fw fa-close"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="volunteer" ui-state="volunteer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="volunteer">&times;</button>
+		    <h4 class="modal-title">{{ rank.text | translate }} &raquo; {{ 'VOLUNTEER_STATISTIC' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+		    <a ng-repeat="volunteer in volunteers | orderBy:'name' | filter:{location:vlocation._id}" class="btn btn-default btn-block" style="text-align: left;" ng-href="#/admin/volunteer/{{ volunteer._id }}">
+			<span volunteer="volunteer"></span>
+			<i class="fa fa-chevron-right pull-right"></i>
+		    </a>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="volunteer" class="btn btn-info">
+			<i class="fa fa-fw fa-close"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+</div>

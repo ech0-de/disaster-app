@@ -1,0 +1,263 @@
+#lightbulb {
+  font-size: 100px;
+  display: block;
+  text-align: center;
+}
+
+h1 {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.chat-user-avatar {
+  font-size: 40px;
+  background: #ccc;
+  padding: 5px 10px;
+}
+
+.feature-icon {
+  font-size: 44px;
+  padding: 0;
+  line-height: 68px;
+  width: 72px;
+  text-align: center;
+  opacity: .8;
+  border: 3px solid;
+  border-radius: 200px;
+  height: 72px;
+  margin-bottom: 20px;
+}
+
+.feature-icon.fa-gamepad {
+  line-height: 60px;
+}
+
+.feature-icon.fa-tachometer {
+  line-height: 60px;
+}
+
+.app-content-loading {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  position: relative;
+}
+
+.loading-spinner {
+  position: absolute;
+  font-size: 50px;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+
+pre {
+  text-align: left !important;
+}
+
+input.scrollable-header {
+  border-bottom: 3px solid #ccc;
+}
+
+.toucharea {width: 100%; height: 100%;}
+
+.has-navbar-bottom .app-body {
+    padding-bottom: 0px;
+}
+.navbar, .navbar-app {
+    min-height: initial;
+}
+.media-left {
+    min-width: 74px;
+}
+.media-body {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* black bootstrap button design for triage */
+.btn-black {
+    color: #fff;
+    background-color: #000000;
+    border-color: #464646;
+}
+.btn-black:hover,
+.btn-black:focus,
+.btn-black.focus,
+.btn-black:active,
+.btn-black.active,
+.open > .dropdown-toggle.btn-black {
+    color: #fff;
+    background-color: #464646;
+    border-color: #7F7E7E;
+}
+.btn-black:active,
+.btn-black.active,
+.open > .dropdown-toggle.btn-black {
+    background-image: none;
+}
+.btn-black.disabled,
+.btn-black[disabled],
+fieldset[disabled] .btn-black,
+.btn-black.disabled:hover,
+.btn-black[disabled]:hover,
+fieldset[disabled] .btn-black:hover,
+.btn-black.disabled:focus,
+.btn-black[disabled]:focus,
+fieldset[disabled] .btn-black:focus,
+.btn-black.disabled.focus,
+.btn-black[disabled].focus,
+fieldset[disabled] .btn-black.focus,
+.btn-black.disabled:active,
+.btn-black[disabled]:active,
+fieldset[disabled] .btn-black:active,
+.btn-black.disabled.active,
+.btn-black[disabled].active,
+fieldset[disabled] .btn-black.active {
+    background-color: #7F7E7E;
+    border-color: #464646;
+}
+.btn-black .badge {
+    color: #7F7E7E;
+    background-color: #fff;
+}
+
+.panel-black {
+  border-color: #464646;
+}
+.panel-black > .panel-heading {
+  color: #fff;
+  background-color: #333333;
+  border-color: #464646;
+}
+.panel-black > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #464646;
+}
+.panel-black > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #464646;
+}
+
+.sorting-indicator {
+    height: 22px;
+    min-width: 60px;
+    margin-top: -4px;
+    margin-right: 4px;
+    padding: 1px 3px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 90% !important;
+}
+
+.body-sketch {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.btn-diagnose {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+}
+
+
+/* fix scrolling behaviour of modals */
+.modal-body {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* increase font size of everything */
+* {
+    font-size: 101% !important;
+}
+
+/* allow bootstrap styling of date & datetime inputs */
+input[type="date"],
+input[type="datetime"] {
+  -webkit-appearance: none;
+}
+
+/* vertical align app name with app icon in sidebar */
+.app-name {
+    padding-top: 30px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+.app-name > img {
+    margin-top: -30px;
+}
+
+/* increase size of modal close buttons */
+button.close, a.close {
+    padding: 7px 12px;
+    font-size: 150% !important;
+}
+
+/* tease content of td */
+td.teaser {
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* fix small font size */
+.small, small {
+    font-size: 90% !important;
+}
+
+/* badge without background-color */
+.sorting-badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    color: #fff;
+    vertical-align: middle;
+    border-radius: 10px;
+    line-height: 1;
+    white-space: nowrap;
+    margin-right: 4px;
+}
+
+.toast {
+    max-width: 500px;
+    height: 43px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 10px;
+    background-color: #383838;
+    color: #F0F0F0;
+    font-size: 18px !important;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 9999;
+}

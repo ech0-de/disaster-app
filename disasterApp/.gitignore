@@ -1,0 +1,5 @@
+# Dependency directories
+node_modules
+_attachments/js/dist.js
+_attachments/css/dist.css
+_attachments/fonts/

@@ -1,0 +1,101 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-area-chart"></i>
+    <span>{{ 'STATISTICS' | translate }}</span>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content">
+	<div class="section">
+	    <div class="panel panel-default">
+		<div class="panel-heading">
+		    <h3 class="panel-title">
+			<i class="fa fa-fw fa-users"></i>
+			{{ 'PATIENT_STATISTIC' | translate }}
+
+			<span class="label label-default pull-right">{{ 'SUM' | translate}}: {{ sum }}</span>
+		    </h3>
+		</div>
+
+		<div class="panel-body">
+		    <button class="btn btn-block" ng-class="s.class" type="button" ng-repeat="s in sortings" style="text-align: left" ui-turn-on="patient" ng-click="sorting.text = s.text">
+			{{ s.text | translate }}
+			<span class="badge pull-right">{{ counts[s.text] }}</span>
+		    </button>
+		</div>
+	    </div>
+
+	    <div class="panel panel-default">
+		<div class="panel-heading">
+		    <h3 class="panel-title">
+			<i class="fa fa-fw fa-user-secret"></i>
+			{{ 'VOLUNTEER_STATISTIC' | translate }}
+
+			<span class="label label-default pull-right">{{ 'STRENGTH' | translate}}: {{ strength }} <u>{{ volunteerSum }}</u></span>
+		    </h3>
+		</div>
+
+		<div class="panel-body">
+		    <button class="btn btn-block btn-default" type="button" ng-repeat="r in ranks" style="text-align: left" ui-turn-on="volunteer" ng-click="rank.text = r.text">
+			<i class="fa fa-fw" ng-class="r.icon"></i>
+			{{ r.text | translate }}
+			<span class="badge pull-right">{{ volunteerCounts[r.text] }}</span>
+		    </button>
+		</div>
+	    </div>
+	</div>
+    </div>
+</div>
+
+<div ui-content-for="modals">
+    <div class="modal modal-overlay" ui-if="patient" ui-state="patient">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="patient">&times;</button>
+		    <h4 class="modal-title">{{ sorting.text | translate }} &raquo; {{ 'PATIENT_STATISTIC' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+		    <a ng-repeat="patient in patients | orderBy:'patientNumber' | filter:{sorting:{text:sorting.text}}" class="btn btn-default btn-block" style="text-align: left;" ng-href="#/patient/{{ patient._id }}">
+			<span class="btn sorting-indicator" ng-class="patient.sorting.class">{{ patient.patientNumber }}</span>
+			{{ patient.firstName }}
+			{{ patient.name }}
+			<i class="fa fa-chevron-right pull-right"></i>
+		    </a>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="patient" class="btn btn-info">
+			<i class="fa fa-fw fa-close"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="volunteer" ui-state="volunteer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="volunteer">&times;</button>
+		    <h4 class="modal-title">{{ rank.text | translate }} &raquo; {{ 'VOLUNTEER_STATISTIC' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+		    <a ng-repeat="volunteer in volunteers | orderBy:'name' | filter:{rank:rank.text}" class="btn btn-default btn-block" style="text-align: left;" ng-href="#/admin/volunteer/{{ volunteer._id }}">
+			<span volunteer="volunteer"></span>
+			<i class="fa fa-chevron-right pull-right"></i>
+		    </a>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="volunteer" class="btn btn-info">
+			<i class="fa fa-fw fa-close"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+</div>

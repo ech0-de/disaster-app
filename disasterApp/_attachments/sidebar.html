@@ -1,0 +1,86 @@
+<div class="scrollable">
+    <h1 class="scrollable-header app-name">
+        <img src="img/favicon/60x60.png" alt="">
+	    disasterApp
+    </h1>  
+
+    <div class="scrollable-content">
+        <div class="list-group" ui-turn-off='uiSidebarLeft'>
+            <li class="list-group-item list-group-item-info">
+                <b>
+		    <i class="fa fa-fw"><img class="media-object" src="img/user-icon.png" alt="..." style="height: 24px;"></i>
+		    {{ $storage.firstName }}
+		    {{ $storage.name }}
+                </b>
+            </li>
+            <a class="list-group-item" href="#/messages">
+                <i class="fa fa-fw fa-comment-o"></i>
+                {{ 'MESSAGES' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+		<!--<span class="badge">{{ $storage.unreadMessages }}</span>-->
+            </a>
+            <a class="list-group-item" href="#/patients">
+                <i class="fa fa-fw fa-users"></i>
+                {{ 'PATIENTS' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a class="list-group-item" href="#/registry">
+                <i class="fa fa-fw fa-check-square-o"></i>
+                {{ 'PATIENT_REGISTRY' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+
+            <a class="list-group-item" href="#/notepad">
+                <i class="fa fa-fw fa-list-alt"></i>
+                {{ 'NOTEPAD' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+
+            <a class="list-group-item" href="#/registration-card">
+                <i class="fa fa-fw fa-credit-card"></i>
+                {{ 'REGISTRATION_CARD' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+
+            <a class="list-group-item" href="#/settings">
+                <i class="fa fa-fw fa-wrench"></i>
+                {{ 'SETTINGS' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+        </div>
+
+        <div class="list-group" ui-turn-off='uiSidebarLeft' ng-show="$storage.admin">
+            <li class="list-group-item list-group-item-success">
+                <b>
+                    <i class="fa fa-fw fa-terminal"></i>
+                    {{ 'ADMINISTRATION' | translate }}
+                </b>
+            </li>
+            <a class="list-group-item" href="#/admin/statistics">
+                <i class="fa fa-fw fa-area-chart"></i>
+                {{ 'STATISTICS' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a class="list-group-item" href="#/admin/location">
+                <i class="fa fa-fw fa-location-arrow"></i>
+                {{ 'LOCATIONS' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a class="list-group-item" href="#/admin/volunteers">
+                <i class="fa fa-fw fa-user-secret"></i>
+                {{ 'VOLUNTEERS' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a class="list-group-item" href="#/admin/resources">
+                <i class="fa fa-fw fa-ambulance"></i>
+                {{ 'OPERATIONAL_RESOURCES' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+            <a class="list-group-item" href="#/admin/journal">
+                <i class="fa fa-fw fa-book"></i>
+                {{ 'OPERATION_JOURNAL' | translate }}
+                <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+        </div>
+    </div>
+</div>

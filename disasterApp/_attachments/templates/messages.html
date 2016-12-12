@@ -1,0 +1,49 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-comment-o"></i>
+    <span>{{ 'MESSAGES' | translate }}</span>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content" ui-scroll-bottom="bottomReached()" scroll-glue>
+	<div class="section">
+	    <div class="media" style="margin-top: 0px; padding: 10px;" ng-class="getClass(message)" ng-repeat="message in messages | orderBy:'datetime'">
+		<div class="media-left pull-left" style="position:relative;">
+		    <div style="position:absolute;left: -25px;background-color:rgba(240,240,240,0.95);width:400px;height:75px;border-top-right-radius:10px;border-bottom-right-radius:10px;" ng-show="info[message._id]">
+			<div class="pull-left" style="margin-left: 25px;"><img class="media-object" src="img/user-icon.png" alt="..." ng-click="info[message._id]=false"></div>
+			<div class="pull-left" style="margin-left: 10px;" volunteer="volunteers[message.sender]"></div>
+			<a class="close" style="position:absolute;right:0;" ng-click="info[message._id]=false">
+			    <i class="fa fa-close"></i>
+			</a>
+			<a class="close" style="position:absolute;bottom:0;right:0;" ng-if="$storage.admin" ng-href="#/admin/volunteer/{{ message.sender }}">
+			    <i class="fa fa-chevron-right"></i>
+			</a>
+		    </div>
+		    <img class="media-object" src="img/user-icon.png" alt="..." ng-click="info[message._id]=true">
+		</div>
+		<div class="media-body">
+		    <h4 class="media-heading">
+			{{ volunteers[message.sender].firstName }}
+			{{ volunteers[message.sender].name }}
+			<small>({{ message.datetime | date : 'medium' }})</small>
+		    </h4>
+		    {{ message.message }}
+		</div>
+	    </div>
+	    <div>
+		<!-- allow user to fully see the last message -->
+		&nbsp;<br>&nbsp;
+	    </div>
+	</div>
+    </div>
+</div>
+
+<div class="navbar navbar-app navbar-absolute-bottom">
+    <form ng-submit="submit()">
+        <div class="input-group">
+	    <input type="text" class="form-control" ng-model="input.message" placeholder="{{ 'MESSAGE' | translate }}" auto-focus>
+            <div class="input-group-addon bg-info" ng-click="submit()">
+                <span class="fa fa-send"></span>
+            </div>
+        </div>
+    </form>
+</div>

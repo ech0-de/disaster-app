@@ -1,0 +1,4 @@
+<b>{{ volunteer.firstName }} {{ volunteer.name }}</b>
+<small ng-if="volunteer.rank && volunteer.rank != 'VOLUNTEER'">(<span class="fa" ng-class="ranks[volunteer.rank]"></span> {{ volunteer.rank | translate }})</small><br>
+<span class="fa fa-fw fa-location-arrow"></span> {{ locations[volunteer.location].name }}<br>
+<span class="fa fa-fw fa-ambulance"></span> {{ resources[volunteer.resource].resourceType }} <span ng-if="resources[volunteer.resource].callSign">({{ resources[volunteer.resource].callSign }})</span>

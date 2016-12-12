@@ -1,0 +1,34 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-list-alt"></i>
+    <span>{{ 'NOTEPAD' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <span class="btn">{{ remaining() }} {{ 'OF' | translate }} {{ todos.length }} {{ 'REMAINING' | translate }}</span>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+
+	<form ng-submit="addTodo()">
+	    <div class="input-group">
+		<input class="form-control" type="text" ng-model="input.text" placeholder="{{ 'ADD_NEW_NOTE' | translate }}">
+		<span class="input-group-btn">
+		    <button class="btn btn-primary" type="submit">
+			<i class="fa fa-plus"></i>
+			{{ 'ADD' | translate }}
+		    </button>
+		</span>
+	    </div>
+	</form>
+
+	<ul class="list-group">
+	    <li class="list-group-item" ng-repeat="todo in todos | reverse">
+		<label style="margin-bottom:0;font-weight:normal">
+		    <input type="checkbox" ng-model="todo.done" ng-change="saveNotepad()">
+		    <span class="done-{{ todo.done }}">{{ todo.text }}</span>
+		</label>
+	    </li>
+	</ul>
+    </div>
+</div>

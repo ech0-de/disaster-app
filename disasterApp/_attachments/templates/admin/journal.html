@@ -1,0 +1,175 @@
+<div ui-content-for="title">
+    <i class="fa fa-fw fa-book"></i>
+    <span>{{ 'OPERATION_JOURNAL' | translate }}</span>
+</div>
+
+<div ui-content-for="navbarAction">
+    <a class="btn" ng-click="addEntry()">
+	<i class="fa fa-user-plus"></i> {{ 'ADD_ENTRY' | translate }}
+    </a>
+</div>
+
+<div class="scrollable">
+    <div class="scrollable-content section">
+	<div class="table-responsive">
+	    <table class="table table-condensed table-bordered table-striped">
+		<tr>
+		    <th class="text-right">#</th>
+		    <th>{{ 'DATETIME' | translate }}</th>
+		    <th>{{ 'TRANSMISSION' | translate }}</th>
+		    <th>{{ 'SENDER' | translate }}</th>
+		    <th>{{ 'RECIPIENT' | translate }}</th>
+		    <th>{{ 'EVENT' | translate }}</th>
+		    <th style="width:50px">&nbsp;</th>
+		</tr>
+		<tr ng-repeat="entry in journal">
+		    <td class="text-right">{{ $index + 1 }}</td>
+		    <td>{{ entry.datetime | date:'shortTime' }}</td>
+		    <td>{{ entry.transmission | translate }}</td>
+		    <td>{{ entry.sender }}</td>
+		    <td>{{ entry.recipient }}</td>
+		    <td class="teaser">{{ entry.event }}</td>
+		    <td><button class="btn btn-default" ng-click="showEntry(entry)"><i class="fa fa-eye"></i></button></td>
+		</tr>
+	    </table>
+	</div>
+    </div>
+</div>
+
+<div ui-content-for="modals">
+    <div class="modal modal-overlay" ui-if="entryAdd" ui-state="entryAdd">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="entryAdd">&times;</button>
+		    <h4 class="modal-title">{{ 'ADD_ENTRY' | translate }}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>{{ 'DATETIME' | translate }}</label>
+                            <input type="datetime" class="form-control" ng-model="entry.datetime">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'TRANSMISSION' | translate }}</label>
+			    <select class="form-control" ng-model="entry.transmission" ng-options="t as (t | translate) for t in transmissions"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'SENDER' | translate }}</label>
+			    <select class="form-control" ng-model="entry.sender" ng-options="v group by v.charAt(0).toUpperCase() for v in recipients | orderBy:'toString()'"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'RECIPIENT' | translate }}</label>
+			    <select class="form-control" ng-model="entry.recipient" ng-options="v group by v.charAt(0).toUpperCase() for v in recipients | orderBy:'toString()'"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'EVENT_LONG' | translate }}</label>
+			    <textarea class="form-control" ng-model="entry.event"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="entryAdd" class="btn btn-info">
+			<i class="fa fa-fw fa-ban"></i>
+			{{ 'CANCEL' | translate }}
+		    </button>
+		    <button ui-turn-off="entryAdd" ng-click="saveEntry()"  class="btn btn-primary">
+			<i class="fa fa-fw fa-floppy-o"></i>
+			{{ 'SAVE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="entryShow" ui-state="entryShow">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" ui-turn-off="entryShow">&times;</button>
+		    <h4 class="modal-title">
+			{{ 'SHOW_ENTRY_FROM' | translate }}
+			{{ entry.datetime | date:'mediumDate' }}
+			{{ 'AT' | translate }}
+			{{ entry.datetime | date:'mediumTime' }}
+		    </h4>
+                </div>
+
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>{{ 'DATETIME' | translate }}</label>
+			    <p class="form-control-static">
+				{{ entry.datetime | date:'medium' }}
+			    </p>
+                        </div>
+			<div class="form-group">
+                            <label>{{ 'AUTHOR' | translate }}</label>
+			    <p class="form-control-static">
+				{{ volunteers[entry.identityId].card.firstName }} {{ volunteers[entry.identityId].card.name }}
+			    </p>
+			</div>
+                        <div class="form-group">
+                            <label>{{ 'TRANSMISSION' | translate }}</label>
+			    <p class="form-control-static">
+				{{ entry.transmission | translate }}
+			    </p>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'SENDER' | translate }}</label>
+			    <p class="form-control-static">
+				{{ entry.sender }}
+			    </p>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'RECIPIENT' | translate }}</label>
+			    <p class="form-control-static">
+				{{ entry.recipient }}
+			    </p>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'EVENT_LONG' | translate }}</label>
+			    <p class="form-control-static">
+				{{ entry.event }}
+			    </p>
+                        </div>
+                    </form>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="entryShow" class="btn btn-info">
+			<i class="fa fa-fw fa-close"></i>
+			{{ 'CLOSE' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-overlay" ui-if="manual" ui-state="manual">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+		    <h4 class="modal-title">Manuelle Eingabe</h4>
+                </div>
+
+                <div class="modal-body">
+		    <input type="text" class="form-control" ng-model="input.text" auto-focus>
+                </div>
+
+		<div class="modal-footer">
+		    <button ui-turn-off="manual" ng-click="mcb(false)" class="btn btn-info">
+			<i class="fa fa-fw fa-ban"></i>
+			{{ 'CANCEL' | translate }}
+		    </button>
+		    <button ui-turn-off="manual" ng-click="mcb(true)" class="btn btn-primary">
+			<i class="fa fa-fw fa-check"></i>
+			{{ 'OK' | translate }}
+		    </button>
+		</div>
+            </div>
+        </div>
+    </div>
+</div>
