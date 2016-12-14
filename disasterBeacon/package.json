@@ -1,0 +1,36 @@
+{
+  "name": "disaster-beacon",
+  "version": "1.0.0",
+  "description": "Discovers nearby disasterApp nodes and initiates replications.",
+  "author": "Dominik Meißner <dominik.meissner@uni-ulm.de>",
+  "contributors": [
+    {
+      "name": "Dominik Meißner",
+      "email": "dominik.meissner@uni-ulm.de"
+    }
+  ],
+  "bin": {
+    "disaster-beacon": "./index.js"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0x530302/disaster-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/0x530302/disaster-app/issues",
+    "email": "dominik.meissner@uni-ulm.de"
+  },
+  "keywords": [
+    "disaster area network",
+    "ad-hoc network",
+    "couchdb"
+  ],
+  "dependencies": {
+    "request": "^2.54.0",
+    "simple-node-logger": "^0.92.21"
+  },
+  "preferGlobal": true,
+  "private": true,
+  "license": "MIT"
+}

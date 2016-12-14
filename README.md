@@ -19,6 +19,20 @@ Getting Started
  1. Run `gulp dist` to pack all client dependencies together
  1. Modify the `.couchapprc` according to your CouchDB configuration
  1. Run `npm run deploy` to push the application to your CouchDB instance
+ 1. Access the disasterApp using the displayed URL
+
+### disasterBeacon
+Due to an unresolved Erlang bug (see [Connection to IPv6 link local address fails due to missing scope identifier](http://erlang.org/pipermail/erlang-bugs/2010-October/002065.html)) it is not possible to replicate to a remote database using an IPv6 link local address.
+As a workaround Erlang's native IP implementation can be patched, by modifying the `inet_set_address` method in `otp/erts/emulator/drivers/common/inet_drv.c`.
+This method is used to set the ip address for a connection.
+To use link local addresses one has to set the `sin6_scope_id` field in the `sockaddr` struct, to the correct value.
+Since this value is only used for link local addresses, any other communication is unaffected by this workaround.
+(see also [man 7 ipv6](http://linux.die.net/man/7/ipv6))
+
+ 1. Make sure that couchDB listens on all IPv6 addresses, by setting `chttpd.bind_address = ::`
+ 1. Change to the `disasterBeacon` directory
+ 1. Run `npm install` to install all dependencies with npm
+ 1. Start the disasterBeacon with `node index.js` or any node process manager (e.g. pm2)
 
 Deploying disasterApp on a Raspberry Pi
 ---------------------------------------
