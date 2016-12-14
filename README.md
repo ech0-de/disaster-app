@@ -1,6 +1,5 @@
 disasterApp
 ===========
-
 A prototypical triage management system based on commodity hardware and software components using a single-hop, ad-hoc network architecture with multi-master replication, a tablet-based device setup, and a mobile application for emergency services.
 
 Dependencies
@@ -41,3 +40,7 @@ Deploying disasterApp on a Raspberry Pi
  1. Configure one as an access point, through which a user device can be connected
  1. Configure the other one in IBSS mode
  1. Install all dependencies and follow the "Getting Started" instructions
+
+Other resources
+---------------
+ * Dominik Meißner, Benjamin Erb, Rens van der Heijden, Kristin Lange, and Frank Kargl. 2016. Mobile triage management in disaster area networks using decentralized replication. In Proceedings of the Eleventh ACM Workshop on Challenged Networks (CHANTS '16). ACM, New York, NY, USA, 7-12. DOI: http://dx.doi.org/10.1145/2979683.2979689
