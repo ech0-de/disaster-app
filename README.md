@@ -37,7 +37,7 @@ Deploying disasterApp on a Raspberry Pi
 ---------------------------------------
 ![disasterApp on a Raspberry Pi](https://cloud.githubusercontent.com/assets/1503861/21144676/dfae9424-c14b-11e6-9a17-618e2e100b0b.jpg)
  1. Attach two WLAN USB dongles to the Raspberry Pi
- 1. Configure one as an access point, through which a user device can be connected
+ 1. Configure one as an access point (e.g. using [hostapd](https://w1.fi/hostapd/)), through which a user device can be connected
  1. Configure the other one in IBSS mode
  1. Install all dependencies and follow the "Getting Started" instructions
 
