@@ -143,43 +143,45 @@ socket.on('message', (msg, source) => {
 
 // method to invoke a replication with another node
 function initiateReplication() {
-    const address = calculateBestNode();
-    if (!address) {
-        // abort replication, when there is no node that needs one
-        log.info('there are currently no nodes to start a replication');
-        return;
-    }
-
-    log.info('replicate with ' + address);
-
-    // initiate replication process with the target node
-    request.post({
-        url: COUCHDB + '_replicate',
-        json: true,
-        body: {
-            source: DATABASE,
-            target: 'http://[' + address + ']:5984/' + DATABASE
-        }
-    }, (err, res, body) => {
-        // record the timestamp of the last successful replication
-        nearbyNodes[address].lastReplication = time();
-        nearbyNodes[address].numberOfReplications += 1;
-
-        // take note, if the replication was not successful
-        if (err || res.statusCode != 200) {
-            nearbyNodes[address].numberOfErrors += 1;
-            nearbyNodes[address].errorRatio = nearbyNodes[address].numberOfErrors / nearbyNodes[address].numberOfReplications;
-
-            log.error(err);
+    request.get(COUCHDB + DATABASE, (err, res, body) => {
+	const address = calculateBestNode(JSON.parse(body).update_seq.split('-', 1)[0]); 
+        if (!address) {
+            // abort replication, when there is no node that needs one
+            log.info('there are currently no nodes to start a replication');
             return;
         }
 
-        // save the new remote state, after the successful replication
-        nearbyNodes[address].endLastSeq = body.history[0].end_last_seq;
+        log.info('replicate with ' + address);
 
-        // log the replication result, it might contain useful information
-	log.info('succesful replication with ' + address);
-	log.info(body);
+        // initiate replication process with the target node
+        request.post({
+            url: COUCHDB + '_replicate',
+            json: true,
+            body: {
+                source: DATABASE,
+                target: 'http://[' + address + ']:5984/' + DATABASE
+            }
+        }, (err, res, body) => {
+            // record the timestamp of the last successful replication
+            nearbyNodes[address].lastReplication = time();
+            nearbyNodes[address].numberOfReplications += 1;
+
+            // take note, if the replication was not successful
+            if (err || res.statusCode != 200) {
+                nearbyNodes[address].numberOfErrors += 1;
+                nearbyNodes[address].errorRatio = nearbyNodes[address].numberOfErrors / nearbyNodes[address].numberOfReplications;
+
+                log.error(err);
+                return;
+            }
+
+            // save the new remote state, after the successful replication
+            nearbyNodes[address].endLastSeq = body.history[0].end_last_seq;
+
+            // log the replication result, it might contain useful information
+            log.info('succesful replication with ' + address);
+            log.info(body);
+        });
     });
 }
 
