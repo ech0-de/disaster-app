@@ -197,7 +197,7 @@ function calculateBestNode(lastSeq) {
 	weight *= Math.pow(2, -(1 - node.errorRatio));
         weight *= Math.pow(2, -(node.endLastSeq / lastSeq));
 	
-        return [address, weight]
+        return [address, weight];
     }).sort((a, b) => {
         return b[1] - a[1];
     });
